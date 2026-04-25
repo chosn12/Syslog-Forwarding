@@ -204,7 +204,7 @@ $script = @'
 # Forwards Windows Security Event Log entries to Mac rsyslog
 # ============================================================
 
-$macIP   = "192.168.64.1"
+$macIP   = "<macIP>"
 $port    = 514
 $newest  = 10
 $logFile = "C:\Scripts\syslog-output.log"
@@ -334,12 +334,12 @@ Full-featured syslog agent with persistent, real-time forwarding. Requires a sof
 
 1. Download [NXLog Community Edition](https://nxlog.co/products/nxlog-community-edition/download) and run the installer.
 2. Install `nxlog.exe` — the service installs as `nxlog` in Windows Services.
-3. Edit `C:\Program Files (x86)\nxlog\conf\nxlog.conf` — replace `<mac-ip>` with your Mac's IP:
+3. Edit `C:\Program Files (x86)\nxlog\conf\nxlog.conf` — replace `<macIP>` with your Mac's IP:
 
 ```xml
 <Output syslog_out>
     Module      om_udp
-    Host        <mac-ip>
+    Host        <macIP>
     Port        514
     Exec        to_syslog_bsd();
 </o>
@@ -360,7 +360,7 @@ net stop nxlog && net start nxlog
 
 | Source | Protocol | Port | Format | Config Directive |
 |--------|----------|------|--------|-----------------|
-| **Ubuntu** | TCP | 514 | syslog RFC 3164 | `@@192.168.64.1:514` |
+| **Ubuntu** | TCP | 514 | syslog RFC 3164 | `@@<macIP>:514` |
 | **Windows** | UDP | 514 | BSD syslog | PowerShell `UdpClient` / NXLog `om_udp` |
 
 ---
@@ -382,7 +382,7 @@ net stop nxlog && net start nxlog
 ### Send a test log from Ubuntu
 
 ```bash
-logger -n 192.168.64.1 -P 514 --tcp "Test message from Ubuntu"
+logger -n <macIP> -P 514 --tcp "Test message from Ubuntu"
 ```
 
 Then watch on the Mac:
@@ -501,10 +501,10 @@ If `-9` still does not work, the processes are tied to open terminal sessions. C
 
 ```bash
 # Confirm the forwarding rule is present
-grep "192.168.64" /etc/rsyslog.conf
+grep "<Private NetworkIP Range>" /etc/rsyslog.conf
 
 # Test TCP connectivity from Ubuntu to Mac
-nc -zv 192.168.64.1 514
+nc -zv <macIP> 514
 
 # Confirm Ubuntu rsyslog is running
 systemctl status rsyslog
@@ -662,13 +662,13 @@ Test-Path "C:\Scripts\forward-syslog.ps1"
 
 ### Windows — script stored on OneDrive
 
-If the original script was saved to `C:\Users\<name>\OneDrive\Desktop\` or any OneDrive path, it may be unavailable at boot before OneDrive syncs, causing the task to fail silently.
+If the original script was saved to `<OneDrive File Path>` or any OneDrive path, it may be unavailable at boot before OneDrive syncs, causing the task to fail silently.
 
 Move the script to a reliable local path:
 
 ```powershell
 New-Item -ItemType Directory -Path "C:\Scripts" -Force
-Copy-Item "C:\Users\Fred\OneDrive\Desktop\forward-syslog.ps1" "C:\Scripts\forward-syslog.ps1"
+Copy-Item "<OneDrive File Path>" "C:\Scripts\forward-syslog.ps1"
 ```
 
 Update the task to point to the new path by deleting and recreating it using the commands in [Option A](#option-a--powershell--task-scheduler-used-in-this-setup).
@@ -676,10 +676,10 @@ Update the task to point to the new path by deleting and recreating it using the
 Once the new path is confirmed working, delete the old OneDrive copy:
 
 ```powershell
-Remove-Item "C:\Users\Fred\OneDrive\Desktop\forward-syslog.ps1"
+Remove-Item "<OneDrive File Path>"
 
 # Confirm it is gone
-Test-Path "C:\Users\Fred\OneDrive\Desktop\forward-syslog.ps1"
+Test-Path "<OneDrive File Path>"
 # Should return: False
 
 # Confirm the working copy is still in place
