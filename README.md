@@ -395,9 +395,6 @@ sudo tail -f /opt/homebrew/var/log/rsyslog-remote.log
 
 # Troubleshooting 
 
-All issues below were encountered and resolved during the live setup of this system.
-
----
 
 ### Mac — rsyslog won't start
 
@@ -689,4 +686,4 @@ Test-Path "C:\Scripts\forward-syslog.ps1"
 
 ---
 
-*Built from a live troubleshooting session — all steps verified on macOS Sequoia (Apple M4), Ubuntu 22.04, and Windows 11.*
+*All steps verified on macOS Tahoe (Apple M4), Ubuntu 22.04, and Windows 11.*
