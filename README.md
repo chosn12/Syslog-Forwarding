@@ -21,7 +21,7 @@ A centralized logging setup where a **Mac (Apple Silicon)** acts as the syslog r
 - [3 — Windows Forwarding](#3--windows-forwarding)
 - [Ports & Protocols](#ports--protocols)
 - [Verification](#verification-checklist)
-- [Troubleshooting](#troubleshooting)
+- [Troubleshooting](#Troubleshooting )
   - [Mac — rsyslog won't start](#mac--rsyslog-wont-start)
   - [Mac — Port 514 not bound after restart](#mac--port-514-not-bound-after-restart)
   - [Mac — brew services shows error but rsyslog is running](#mac--brew-services-shows-error-but-rsyslog-is-running)
@@ -393,7 +393,7 @@ sudo tail -f /opt/homebrew/var/log/rsyslog-remote.log
 
 ---
 
-## Troubleshooting
+# Troubleshooting 
 
 All issues below were encountered and resolved during the live setup of this system.
 
